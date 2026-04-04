@@ -464,15 +464,10 @@ class ChatCLI:
         return False
 
     def _cmd_voz(self) -> bool:
-        """
-        Ejecuta el comando 'voz'.
+        if self.voice is None:
+            self.ui.imprimir_info("Función de voz no disponible en versión web.")
+            return False
 
-        Activa el flujo de captura por micrófono y procesa la transcripción
-        como un mensaje del usuario.
-
-        Returns:
-            False, indicando que la aplicación debe continuar.
-        """
         obtener_logger().info("Comando de voz ejecutado.")
         self.procesar_voz()
         return False
