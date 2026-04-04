@@ -23,8 +23,11 @@ error_presenter = ErrorPresenter(config, ui)
 chat_service = GeminiChatService(config)
 
 _api_key = os.getenv("GEMINI_API_KEY", "").strip()
-if _api_key:
-    chat_service.inicializar(_api_key)
+
+if not _api_key:
+    raise ValueError("Falta GEMINI_API_KEY en el entorno")
+
+chat_service.inicializar(_api_key)
 
 chat_controller = ChatController(
     config=config,
@@ -75,3 +78,7 @@ def home():
             respuesta = chat_controller.procesar_mensaje(mensaje)
 
     return render_template_string(HTML, mensaje=mensaje, respuesta=respuesta)
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
