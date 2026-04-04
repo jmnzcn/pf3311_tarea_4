@@ -62,20 +62,8 @@ class ChatController:
         self.chat_service = chat_service
         self.error_presenter = error_presenter
 
-    def procesar_mensaje(self, texto: str) -> None:
-        """
-        Procesa un mensaje de texto enviado por el usuario.
 
-        Flujo general:
-        1. Muestra un indicador visual de escritura.
-        2. Envía el mensaje al servicio de chat.
-        3. Si se obtiene una respuesta, la muestra en pantalla.
-        4. Si ocurre un error, lo presenta al usuario de forma legible.
-        5. Siempre detiene el indicador visual al finalizar.
-
-        Args:
-            texto: Mensaje escrito por el usuario.
-        """
+    def procesar_mensaje(self, texto: str) -> str:
         indicador = IndicadorEscritura(
             output=self.output,
             config=self.config,
@@ -86,29 +74,22 @@ class ChatController:
         logger.info("Procesando mensaje del usuario. Longitud=%s caracteres.", len(texto))
 
         try:
-            # Se inicia el indicador mientras el modelo genera la respuesta.
             indicador.iniciar()
-
-            # El servicio de chat procesa el texto y devuelve la respuesta.
             respuesta = self.chat_service.enviar_mensaje(texto)
-
             logger.info(
                 "Respuesta generada correctamente. Longitud=%s caracteres.",
                 len(respuesta),
             )
 
         except Exception as error:
-            # Cualquier error durante el procesamiento se delega al presentador
-            # de errores para traducirlo y mostrarlo apropiadamente.
             self.error_presenter.mostrar("Error procesando mensaje", error)
-            return
+            return "Ocurrió un error procesando el mensaje."
 
         finally:
-            # El indicador se detiene siempre, incluso si ocurre un error.
             indicador.detener()
 
-        # Si el flujo fue exitoso, se imprime la respuesta del asistente.
         self.ui.imprimir_mensaje(self.config.nombre_bot, respuesta, Fore.CYAN)
+        return respuesta
 
 
 class CommandRouter:
