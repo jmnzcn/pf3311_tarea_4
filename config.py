@@ -177,9 +177,9 @@ class Config:
         """
         return cls(
             nombre_bot=env_str("BOT_NAME", "ChatGiPiTi"),
-            nombre_modelo=env_str("MODEL_NAME", "gemini-2.5-flash"),
+            nombre_modelo=env_str("MODEL_NAME", "models/gemini-2.5-flash"),
             temperatura=env_float("TEMPERATURE", 0.8),
-            max_tokens=env_int("MAX_TOKENS", 1000),
+            max_tokens=env_int("MAX_TOKENS", 4096),
             voz_habilitada=env_bool("VOZ_HABILITADA", True),
             voz_timeout=env_float("VOZ_TIMEOUT", 5.0),
             voz_phrase_time_limit=env_float("VOZ_PHRASE_TIME_LIMIT", 8.0),
