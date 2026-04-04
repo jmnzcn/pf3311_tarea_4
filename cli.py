@@ -24,7 +24,11 @@ from ui import (
     normalizar_texto,
 )
 #from voice import VoiceManager, VoiceService
-
+try:
+    from voice import VoiceManager, VoiceService
+except ImportError:
+    VoiceManager = None
+    VoiceService = None
 
 class ChatController:
     """
@@ -219,7 +223,7 @@ class ChatCLI:
         self.screen = screen_controller or AnsiScreenController(stream=sys.stdout)
 
         # Servicio que permite capturar y transcribir voz.
-        self.voice = voice_service or VoiceManager(config)
+        self.voice = voice_service or (VoiceManager(config) if VoiceManager else None)
 
         # Servicio conversacional principal.
         self.chat_service = chat_service or GeminiChatService(config)
