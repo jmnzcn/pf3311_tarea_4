@@ -23,7 +23,7 @@ from ui import (
     hora_actual,
     normalizar_texto,
 )
-from voice import VoiceManager, VoiceService
+#from voice import VoiceManager, VoiceService
 
 
 class ChatController:
