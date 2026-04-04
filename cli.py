@@ -23,6 +23,7 @@ from ui import (
     hora_actual,
     normalizar_texto,
 )
+
 #from voice import VoiceManager, VoiceService
 try:
     from voice import VoiceManager, VoiceService
