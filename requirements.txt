@@ -1,6 +1,0 @@
-google-genai
-python-dotenv
-colorama
-flask
-gunicorn
-SpeechRecognition
