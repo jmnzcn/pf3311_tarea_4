@@ -1,0 +1,20 @@
+# Entorno virtual
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Variables de entorno
+.env
+
+# Logs y temporales
+logs/
+tts_audio/
+*.log
+*.tmp
+historial_chat.txt
+
+# Sistema
+.DS_Store
